@@ -17,6 +17,10 @@
         <label for="password">Contraseña:</label>
         <input type="password" name="password" required><br><br>
 
+        <label for = "institucion_id"> Institucion id</label>
+        <input type = "number" name = "institucion_id" required><br><br>
+
+
         <button type="submit">Registrar</button>
     </form>
 
@@ -30,6 +34,7 @@
                 nombre: formData.get('nombre'),
                 correo: formData.get('correo'),
                 password: formData.get('password'),
+                institucion_id: formData.get('institucion_id')
             };
 
             // Enviar la solicitud POST a la API
