@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .logic.serializers import UsuariosSerializer, GestorSerializer, ResponsableFinancieroSerializer, EstudianteSerializer, ResponsableEstudianteSerializer
 from rest_framework import status
 from .models import Usuario, Gestor, ResponsableFinanciero, Estudiante, ResponsableEstudiante
+from templates import crearUsuarios
 
 # Create your views here.
 class UsuarioViewSet(viewsets.ViewSet):
@@ -160,5 +161,5 @@ class ResponsableEstudianteViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class HomeView(TemplateView):
-    template_name = 'base.html'
+    template_name = 'crearUsuarios.html'
     

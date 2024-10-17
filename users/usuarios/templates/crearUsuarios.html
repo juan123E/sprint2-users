@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <h2>Crear Cuenta</h2>
+    <form id="registerForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required><br><br>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" name="correo" required><br><br>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" required><br><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+            // Crear un objeto FormData con los datos del formulario
+            const formData = new FormData(this);
+            const data = {
+                nombre: formData.get('nombre'),
+                correo: formData.get('correo'),
+                password: formData.get('password'),
+            };
+
+            // Enviar la solicitud POST a la API
+            fetch('http://34.121.213.38:8080/api/usuarios/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Convertir la respuesta en JSON
+                }
+                throw new Error('Error en el registro');
+            })
+            .then(data => {
+                console.log('Usuario registrado:', data);
+                // Redirigir o mostrar un mensaje de éxito
+                window.location.href = '/login/'; // Redirigir al login después del registro
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al registrar el usuario.'); // Mensaje de error
+            });
+        });
+    </script>
+</body>
+</html>
