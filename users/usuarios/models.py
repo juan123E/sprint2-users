@@ -29,7 +29,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128,default='sistemas')
     institucion_id = models.IntegerField()
 
     USERNAME_FIELD = 'correo'  # Usar correo como nombre de usuario
