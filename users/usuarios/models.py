@@ -34,7 +34,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'correo'  # Usar correo como nombre de usuario
     PASSWORD_FIELD = 'password'  # Usar password como contraseña
-    REQUIRED_FIELDS = ['nombre', 'institucion_id', 'password']  
+    REQUIRED_FIELDS = ['nombre', 'institucion_id']  
 
     objects = UsuarioManager()
     def __str__(self):
