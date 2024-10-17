@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.response import Response
 from .logic.serializers import UsuariosSerializer, GestorSerializer, ResponsableFinancieroSerializer, EstudianteSerializer, ResponsableEstudianteSerializer
@@ -157,4 +158,7 @@ class ResponsableEstudianteViewSet(viewsets.ViewSet):
         responsable = ResponsableEstudiante.objects.get(id=pk)
         responsable.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class HomeView(TemplateView):
+    template_name = 'base.html'
     
