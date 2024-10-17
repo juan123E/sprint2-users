@@ -5,7 +5,9 @@ from rest_framework.response import Response
 from .logic.serializers import UsuariosSerializer, GestorSerializer, ResponsableFinancieroSerializer, EstudianteSerializer, ResponsableEstudianteSerializer
 from rest_framework import status
 from .models import Usuario, Gestor, ResponsableFinanciero, Estudiante, ResponsableEstudiante
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 
 # Create your views here.
 class UsuarioViewSet(viewsets.ViewSet):
