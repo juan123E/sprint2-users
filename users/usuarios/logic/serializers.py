@@ -4,7 +4,7 @@ from  usuarios.models import Usuario, Gestor, ResponsableFinanciero, Estudiante,
 class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ('id', 'nombre', 'correo', 'institucion_id')
 class GestorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gestor

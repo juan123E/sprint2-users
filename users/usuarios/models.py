@@ -1,11 +1,42 @@
 from django.db import models
-
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 # Create your models here.
-class Usuario(models.Model):
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, correo, nombre, institucion_id, password):
+        if not correo:
+            raise ValueError('El usuario debe tener un correo')
+        usuario = self.model(
+            correo=self.normalize_email(correo),
+            nombre=nombre,
+            institucion_id=institucion_id
+        )
+        usuario.set_password(password)
+        usuario.save(using=self._db)
+        return usuario
+
+    def create_superuser(self, correo, nombre, institucion_id, password):
+        usuario = self.create_user(
+            correo=self.normalize_email(correo),
+            nombre=nombre,
+            institucion_id=institucion_id,
+            password=password
+        )
+        usuario.is_admin = True
+        usuario.save(using=self._db)
+        return usuario
+class Usuario(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     correo = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
     institucion_id = models.IntegerField()
+
+    USERNAME_FIELD = 'correo'  # Usar correo como nombre de usuario
+    PASSWORD_FIELD = 'password'  # Usar password como contraseña
+    REQUIRED_FIELDS = ['nombre', 'institucion_id', 'password', 'correo']  
+
+    objects = UsuarioManager()
     def __str__(self):
         return self.id
 
