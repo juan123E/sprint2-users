@@ -7,7 +7,7 @@ from rest_framework import status
 from .models import Usuario, Gestor, ResponsableFinanciero, Estudiante, ResponsableEstudiante
 from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
+
 
 # Create your views here.
 class UsuarioViewSet(viewsets.ViewSet):
@@ -15,6 +15,7 @@ class UsuarioViewSet(viewsets.ViewSet):
         usuarios = Usuario.objects.all()
         serializer = UsuariosSerializer(usuarios, many=True)
         return Response(serializer.data)
+    @csrf_exempt
     def create(self, request):#post
         serializer = UsuariosSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
