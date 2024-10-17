@@ -15,7 +15,6 @@ class UsuarioViewSet(viewsets.ViewSet):
         usuarios = Usuario.objects.all()
         serializer = UsuariosSerializer(usuarios, many=True)
         return Response(serializer.data)
-    @csrf_exempt
     def create(self, request):#post
         serializer = UsuariosSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
