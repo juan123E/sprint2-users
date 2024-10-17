@@ -6,10 +6,12 @@ from .logic.serializers import UsuariosSerializer, GestorSerializer, Responsable
 from rest_framework import status
 from .models import Usuario, Gestor, ResponsableFinanciero, Estudiante, ResponsableEstudiante
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 
 # Create your views here.
+@method_decorator(csrf_exempt, name='dispatch')
 class UsuarioViewSet(viewsets.ViewSet):
     def list(self, request):#get all
         usuarios = Usuario.objects.all()
