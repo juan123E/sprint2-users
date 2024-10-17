@@ -31,7 +31,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     correo = models.EmailField(unique=True)
     password = models.CharField(max_length=128,default='sistemas')
     institucion_id = models.IntegerField()
-
+    is_staff = models.BooleanField(default=False)
     USERNAME_FIELD = 'correo'  # Usar correo como nombre de usuario
     REQUIRED_FIELDS = ['nombre', 'institucion_id']  
 
