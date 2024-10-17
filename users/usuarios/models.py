@@ -33,7 +33,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     institucion_id = models.IntegerField()
 
     USERNAME_FIELD = 'correo'  # Usar correo como nombre de usuario
-    PASSWORD_FIELD = 'password'  # Usar password como contraseña
     REQUIRED_FIELDS = ['nombre', 'institucion_id']  
 
     objects = UsuarioManager()
