@@ -29,9 +29,10 @@
         document.getElementById('registerForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
-            console.log(formData);
+            
             // Crear un objeto FormData con los datos del formulario
             const formData = new FormData(this);
+            console.log(formData);
             const data = {
                 nombre: formData.get('nombre'),
                 correo: formData.get('correo'),
