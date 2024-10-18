@@ -59,6 +59,11 @@
                 } else {
                     // Crear una lista de usuarios o estudiantes
                     let listaUsuarios = '<h3>Resultados:</h3><ul>';
+                    if (criterio === 'estudiantes') {
+                        data.forEach(estudiante => {
+                            listaUsuarios += `<li><strong>Nombre:</strong> ${estudiante.nombre} - <strong>Código:</strong> ${estudiante.codigo}</li>`;
+                        });
+                    } else
                     data.forEach(usuario => {
                         listaUsuarios += `<li><strong>Nombre:</strong> ${usuario.nombre} - <strong>Correo:</strong> ${usuario.correo}</li>`;
                     });
