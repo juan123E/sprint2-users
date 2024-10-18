@@ -83,13 +83,6 @@
                 });
                 }
             })
-            .then(response => {
-                console.log(response);
-                if (response.ok) {
-                    return response.json(); // Convertir la respuesta en JSON
-                }
-                throw new Error('Error en el registro');
-            })
             .then(data => {
                 console.log('Usuario registrado:', data);
                 // Redirigir o mostrar un mensaje de éxito
