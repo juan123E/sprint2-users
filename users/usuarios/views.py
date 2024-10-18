@@ -166,4 +166,9 @@ class ResponsableEstudianteViewSet(viewsets.ViewSet):
     
 class HomeView(TemplateView):
     template_name = 'crearUsuarios.html'
-    
+
+class EstudiantesView(TemplateView):
+    template_name = 'crearEstudiantes.html'
+
+class ConsultasView(TemplateView):
+    template_name = 'consultarUsuarios.html'

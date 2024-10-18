@@ -23,7 +23,7 @@ def redirigir_a_login(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuarios/',include('usuarios.templates.urls')),
+    path('vistas/',include('usuarios.templates.urls')),
     path('',redirigir_a_login),
     path('api/',include('usuarios.urls')),
     path('',include('django.contrib.auth.urls'))
