@@ -39,14 +39,11 @@
                 password: formData.get('password'),
                 institucion_id: formData.get('institucion_id')
             };
-            csrf_token = formData.get('csrfmiddlewaretoken');
-            console.log(csrf_token);
-
             // Enviar la solicitud POST a la API
             fetch('/api/usuarios', {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': data.csrf_token,
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
