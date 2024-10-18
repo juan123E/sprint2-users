@@ -87,7 +87,7 @@
                 }
             })
             .then(id => {
-                console.log(id);
+                id = id.id;
                 if(formData.get('responsable') == "1"){
                     return fetch('/api/responsables', {
                         method: 'POST',
