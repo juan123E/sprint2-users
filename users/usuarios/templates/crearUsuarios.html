@@ -8,7 +8,7 @@
 <body>
     <h2>Crear Cuenta</h2>
     <form id="registerForm">
-        
+        {% csrf_token %}
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required><br><br>
 
