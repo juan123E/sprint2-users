@@ -21,7 +21,7 @@ class UsuarioViewSet(viewsets.ViewSet):
         serializer = UsuariosSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers={'id': f'/api/usuarios/{serializer.data["id"]}'})
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers={'id': f'{serializer.data["id"]}'})
     def retrieve(self, request, pk=None):#get one
         usuario = Usuario.objects.get(id=pk)
         serializer = UsuariosSerializer(usuario)

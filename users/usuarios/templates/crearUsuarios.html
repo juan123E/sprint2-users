@@ -24,12 +24,11 @@
         <h4>Gestor</h4>
         <label for="tipoGestor">tipo Gestor:</label>
         <select name="tipoGestor" required>
-            <option value="Administrativo">Admin</option>
-            <option value="Contador">User</option>
-            <option value="Gestor morosos">User</option>
+            <option value="No">No es gestor</option>
+            <option value="Administrativo">Administrativo</option>
+            <option value="Contador">Contador</option>
+            <option value="Gestor morosos">Gestor morosos</option>
         </select><br><br>
-        <label for = "usuario_id"> Institucion id</label>
-        <input type = "number" name = "institucion_id" required><br><br>
     
 
 
@@ -50,6 +49,10 @@
                 password: formData.get('password'),
                 institucion_id: formData.get('institucion_id')
             };
+            gestor = {
+                tipoGestor: formData.get('tipoGestor'),
+                usuario_id: 0
+            }
             // Enviar la solicitud POST a la API
             fetch('/api/usuarios', {
                 method: 'POST',
@@ -64,6 +67,21 @@
                     return response.json(); // Convertir la respuesta en JSON
                 }
                 throw new Error('Error en el registro');
+            })
+            .then(response => {
+                
+                gestor.usuario_id = response.id;
+                if (gestor.tipoGestor == "No"){return response;}
+                else{
+                return fetch('/api/gestores', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(gestor),
+                });
+                }
             })
             .then(data => {
                 console.log('Usuario registrado:', data);
