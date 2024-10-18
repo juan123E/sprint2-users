@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/vistas/usuarios">crear usuario</a></li>
+            <li><a href="/vistas/estudiantes">crear estudiantes</a></li>
+            <li><a href="/vistas/consultas">consultas</a></li>
+        </ul>
+    </nav>
+    <h2>Crear estudiante</h2>
+    <form id="registerForm">
+        {% csrf_token %}
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required><br><br>
+
+        <label for="codigo">Contraseña:</label>
+        <input type="text" name="codigo" required><br><br>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+
+            
+            // Crear un objeto FormData con los datos del formulario
+            const formData = new FormData(this);
+            console.log(formData);
+            const data = {
+                nombre: formData.get('nombre'),
+                correo: formData.get('codigo'),
+            };
+            // Enviar la solicitud POST a la API
+            fetch('/api/estudiantes', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // Convertir la respuesta en JSON
+                }
+                throw new Error('Error en el registro');
+            })
+            .then(data => {
+                console.log('estudiante registrado:', data);
+                // Redirigir o mostrar un mensaje de éxito
+                window.location.href = '/vistas/estudiantes'; // Redirigir al login después del registro
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al registrar el usuario.'); // Mensaje de error
+            });
+        });
+    </script>
+</body>
+</html>
