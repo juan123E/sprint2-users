@@ -34,17 +34,18 @@
             const formData = new FormData(this);
             console.log(formData);
             const data = {
-                csrf_token: formData.get('csrfmiddlewaretoken'),
                 nombre: formData.get('nombre'),
                 correo: formData.get('correo'),
                 password: formData.get('password'),
                 institucion_id: formData.get('institucion_id')
             };
+            csrf_token: formData.get('csrfmiddlewaretoken');
 
             // Enviar la solicitud POST a la API
             fetch('/api/usuarios', {
                 method: 'POST',
                 headers: {
+                    'X-CSRFToken': csrf_token,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
