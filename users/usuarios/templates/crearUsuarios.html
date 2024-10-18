@@ -51,7 +51,7 @@
             };
             gestor = {
                 tipoGestor: formData.get('tipoGestor'),
-                usuario_id: 0
+                id: 0
             }
             // Enviar la solicitud POST a la API
             fetch('/api/usuarios', {
@@ -70,7 +70,7 @@
             })
             .then(response => {
                 
-                gestor.usuario_id = response.id;
+                gestor.id = response.id;
                 if (gestor.tipoGestor == "No"){return response;}
                 else{
                 return fetch('/api/gestores', {
