@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Usuarios</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/vistas/usuarios">crear usuario</a></li>
+            <li><a href="/vistas/estudiantes">crear estudiantes</a></li>
+            <li><a href="/vistas/consultas">consultas</a></li>
+        </ul>
+    </nav>
+    <h2>Consulta de Usuarios</h2>
+    <form id="consultaUsuariosForm">
+        <label for="criterio">Buscar por:</label>
+        <select id="criterio" name="criterio" required>
+            <option value="usuarios">Todos los Usuarios</option>
+            <option value="estudiantes">Todos los Estudiantes</option>
+        </select>
+
+        <button type="submit" href="/vistas/consultas">Consultar</button>
+    </form>
+
+    <div id="resultados">
+        <!-- Aquí aparecerán los resultados -->
+    </div>
+
+    <script>
+        // Capturar el evento de envío del formulario
+        document.getElementById('consultaUsuariosForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío estándar del formulario
+
+            // Obtener el criterio seleccionado (usuarios o estudiantes)
+            const criterio = document.getElementById('criterio').value;
+
+            // Enviar la consulta a la API para obtener todos los usuarios o estudiantes
+            fetch(`/api/${criterio}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la consulta');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Mostrar los resultados en la página
+                const resultadosDiv = document.getElementById('resultados');
+                resultadosDiv.innerHTML = ''; // Limpiar resultados previos
+
+                if (data.length === 0) {
+                    resultadosDiv.innerHTML = '<p>No se encontraron registros.</p>';
+                } else {
+                    // Crear una lista de usuarios o estudiantes
+                    let listaUsuarios = '<h3>Resultados:</h3><ul>';
+                    data.forEach(usuario => {
+                        listaUsuarios += `<li><strong>Nombre:</strong> ${usuario.nombre} - <strong>Correo:</strong> ${usuario.correo}</li>`;
+                    });
+                    listaUsuarios += '</ul>';
+                    resultadosDiv.innerHTML = listaUsuarios;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('resultados').innerHTML = '<p>Error al realizar la consulta.</p>';
+            });
+        });
+    </script>
+
+</body>
+</html>
