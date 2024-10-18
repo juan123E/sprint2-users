@@ -20,6 +20,17 @@
 
         <label for = "institucion_id"> Institucion id</label>
         <input type = "number" name = "institucion_id" required><br><br>
+        <br><br>
+        <h4>Gestor</h4>
+        <label for="tipoGestor">tipo Gestor:</label>
+        <select name="tipoGestor" required>
+            <option value="Administrativo">Admin</option>
+            <option value="Contador">User</option>
+            <option value="Gestor morosos">User</option>
+        </select><br><br>
+        <label for = "usuario_id"> Institucion id</label>
+        <input type = "number" name = "institucion_id" required><br><br>
+    
 
 
         <button type="submit">Registrar</button>
@@ -57,7 +68,7 @@
             .then(data => {
                 console.log('Usuario registrado:', data);
                 // Redirigir o mostrar un mensaje de éxito
-                window.location.href = '/login/'; // Redirigir al login después del registro
+                window.location.href = '/usuarios/'; // Redirigir al login después del registro
             })
             .catch(error => {
                 console.error('Error:', error);
