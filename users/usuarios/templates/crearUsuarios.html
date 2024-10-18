@@ -29,7 +29,10 @@
             <option value="Contador">Contador</option>
             <option value="Gestor morosos">Gestor morosos</option>
         </select><br><br>
-    
+        <br><br>
+        <h4>Responsable</h4>
+        <label for = "responsable">Es responsable Financiero</label>
+        <input type = "checkbox" name = "responsable" value = "1"><br><br>
 
 
         <button type="submit">Registrar</button>
@@ -69,8 +72,8 @@
                 throw new Error('Error en el registro');
             })
             .then(response => {
-                
-                gestor.id = response.id;
+                id = response.id;
+                gestor.id = id;
                 if (gestor.tipoGestor == "No"){return response;}
                 else{
                 return fetch('/api/gestores', {
@@ -81,6 +84,21 @@
                     },
                     body: JSON.stringify(gestor),
                 });
+                }
+            })
+            .then(id => {
+                if(formData.get('responsable') == "1"){
+                    return fetch('/api/responsables', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({id:id})
+                    });
+                }
+                else{
+                    return id;
                 }
             })
             .then(data => {
